@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071326">
+<title>Subway Surfers — Portal de Jogos</title>
+<style>
+:root{color-scheme:dark;--bg:#061020;--panel:#0c1b31;--blue:#1685ff;--text:#eef6ff;--muted:#9bb5d8}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 0,#12345d 0,#071326 48%,#040914 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+header{display:flex;align-items:center;gap:14px;padding:14px clamp(14px,3vw,32px);border-bottom:1px solid #1b365a;background:#071326eF;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.logo{font-weight:1000;font-size:clamp(18px,3vw,28px);letter-spacing:-1px;line-height:1;color:#ffdf39;text-shadow:2px 3px #f04a1b,-1px -1px #fff}
+.logo span{display:block;color:#fff;font-size:11px;letter-spacing:3px;text-shadow:none;margin-top:5px}
+nav{display:flex;gap:14px;margin-left:auto;color:#c6d8f2;font-size:14px}
+nav a{color:inherit;text-decoration:none}
+main{width:min(1250px,100%);margin:auto;padding:clamp(12px,2.5vw,28px)}
+.intro{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}
+h1{font-size:clamp(23px,4vw,38px);line-height:1.08;margin:0 0 8px}
+p{color:var(--muted);margin:0;line-height:1.5}
+.tag{border:1px solid #2a4c78;background:#102746;border-radius:99px;padding:7px 11px;font-size:12px;white-space:nowrap;color:#b9d8ff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:18px;align-items:start}
+.gamebox{border:1px solid #24599b;border-radius:18px;overflow:hidden;background:#030914;box-shadow:0 0 0 3px #0d2b51,0 18px 55px #0008}
+.gamehead{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#0b1a30;border-bottom:1px solid #1d3c63;gap:10px}
+.gamehead strong{font-size:14px}
+.small{font-size:12px;color:#9bb5d8}
+.framewrap{position:relative;width:100%;height:min(70vh,720px);min-height:400px;background:linear-gradient(160deg,#0b3158,#030914);display:flex;align-items:center;justify-content:center}
+iframe{width:100%;height:100%;border:0;background:#050b14}
+.placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse at 50% 30%,#164b7b,#071326 68%);z-index:1}
+.placeholder.hidden{display:none}
+.trackart{width:min(290px,80%);height:180px;position:relative;margin-bottom:16px;overflow:hidden;border-radius:14px;border:1px solid #3477bd;background:linear-gradient(#2aa6ef 0 38%,#e5a65b 38% 100%)}
+.trackart:before,.trackart:after{content:"";position:absolute;top:35%;height:100%;width:33%;background:linear-gradient(90deg,#253d61,#6688a8 20%,#182c4a 45%,#6d8da7 58%,#263b5d);transform:skewY(-18deg)}
+.trackart:before{left:-3%}.trackart:after{right:-3%}
+.runner{position:absolute;bottom:6px;left:42%;font-size:62px;filter:drop-shadow(0 5px 2px #0008);z-index:1}
+.coin{position:absolute;top:43%;left:47%;font-size:29px;z-index:2}
+.tracktitle{font-size:19px;font-weight:850;margin-bottom:8px}
+.hint{max-width:430px;font-size:13px;margin-bottom:15px}
+button,.launch{border:0;border-radius:12px;background:linear-gradient(180deg,#2695ff,#0870ec);color:white;font:700 15px system-ui;padding:13px 18px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px #0069df45}
+button:active,.launch:active{transform:scale(.98)}
+.secondary{background:#142a46;border:1px solid #2b4b70;box-shadow:none}
+.side{background:linear-gradient(180deg,#0c1c33,#081426);border:1px solid #1d385b;border-radius:16px;padding:18px}
+.cover{height:145px;border-radius:12px;background:linear-gradient(135deg,#31b6ff,#0568d5 55%,#f9bd2d);display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:16px;border:1px solid #398ee3}
+.side h2{font-size:22px;margin:0 0 8px}
+.side p{font-size:14px;margin-bottom:16px}
+.side .launch{width:100%;margin-bottom:12px}
+.status{font-size:12px;color:#91b4dd;margin-top:10px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.feature{border:1px solid #1c385b;background:#0a192c;border-radius:12px;padding:13px;font-size:13px;color:#c6d8f2}
+.feature b{display:block;color:white;margin-bottom:4px}
+footer{padding:22px 16px 32px;text-align:center;color:#7794ba;font-size:12px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.cover{height:92px;font-size:48px;grid-row:span 3;margin:0}.side h2{font-size:20px}.side p{margin:0}.side .launch{margin:0}.status{grid-column:1/-1}.framewrap{height:68vh;min-height:380px}.intro{align-items:start;flex-direction:column}.tag{white-space:normal}}
+@media(max-width:480px){header{padding:12px}.logo{font-size:19px}nav{gap:10px;font-size:12px}nav a:nth-child(2){display:none}main{padding:12px}.gamehead{padding:10px}.framewrap{height:65vh;min-height:370px}.features{grid-template-columns:1fr}.side{padding:12px;grid-template-columns:75px 1fr}.cover{height:75px;font-size:40px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">SUBWAY<br>SURFERS<span>GAME PORTAL</span></div>
+  <nav><a href="#jogo">🎮 Jogar</a><a href="#sobre">ℹ️ Sobre</a></nav>
+</header>
+<main>
+  <section class="intro">
+    <div><h1>Corre. Desvia. Sobrevive.</h1><p>Subway Surfers no navegador — edição para celular.</p></div>
+    <span class="tag">🏃 Endless runner · 3D</span>
+  </section>
+  <section class="layout" id="jogo">
+    <div>
+      <div class="gamebox">
+        <div class="gamehead"><strong>🎮 SUBWAY SURFERS</strong><span class="small">Tela de jogo</span></div>
+        <div class="framewrap">
+          <iframe id="gameFrame" title="Subway Surfers no navegador" allow="fullscreen; autoplay; gamepad" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <div class="placeholder" id="placeholder">
+            <div class="trackart"><span class="coin">🪙</span><span class="runner">🏃</span></div>
+            <div class="tracktitle">Pronto para correr?</div>
+            <p class="hint">A versão original é hospedada pela Poki. Se o site não permitir abrir o jogo dentro desta página, use o botão para jogar diretamente na Poki.</p>
+            <button id="tryEmbed">▶ Tentar carregar o jogo</button>
+            <a class="launch" style="margin-top:10px" href="https://poki.com/en/g/subway-surfers" target="_blank" rel="noopener noreferrer">Abrir Subway Surfers na Poki ↗</a>
+            <div class="status" id="status">Precisa de internet. A incorporação pode ser bloqueada pelo site do jogo.</div>
+          </div>
+        </div>
+      </div>
+      <div class="features">
+        <div class="feature"><b>📱 Feito para celular</b>Layout responsivo para telas pequenas.</div>
+        <div class="feature"><b>🌐 Jogo hospedado</b>O jogo original continua nos servidores da Poki.</div>
+        <div class="feature"><b>🔗 Acesso direto</b>Botão alternativo caso o navegador bloqueie a incorporação.</div>
+      </div>
+    </div>
+    <aside class="side" id="sobre">
+      <div class="cover">🏃‍♂️</div>
+      <h2>Subway Surfers</h2>
+      <p>Corra pelos trilhos, desvie dos trens e colete moedas neste clássico endless runner.</p>
+      <a class="launch" href="https://poki.com/en/g/subway-surfers" target="_blank" rel="noopener noreferrer">▶ Jogar original</a>
+      <div class="status">Nota: esta página é um portal independente, não oficial e não afiliado à SYBO ou à Poki.</div>
+    </aside>
+  </section>
+</main>
+<footer>Portal de demonstração. Subway Surfers é propriedade de seus respectivos titulares. O jogo original é carregado por um serviço externo.</footer>
+<script>
+const frame=document.getElementById('gameFrame');
+const placeholder=document.getElementById('placeholder');
+const status=document.getElementById('status');
+document.getElementById('tryEmbed').addEventListener('click',()=>{
+  status.textContent='Tentando abrir o jogo nesta página… se ficar vazio, use “Abrir Subway Surfers na Poki”.';
+  placeholder.classList.add('hidden');
+  frame.src='https://poki.com/en/g/subway-surfers';
+  // Sites externos podem impedir a incorporação; mostrar o fallback após um tempo.
+  window.setTimeout(()=>{
+    if(!frame.dataset.loaded){
+      placeholder.classList.remove('hidden');
+      status.textContent='A Poki pode bloquear a incorporação. Abra o jogo diretamente no botão acima.';
+    }
+  },7000);
+});
+frame.addEventListener('load',()=>{frame.dataset.loaded='1';});
+</script>
+</body>
+</html>
